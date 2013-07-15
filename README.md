@@ -5,7 +5,7 @@ Install and configure redis key-value store.
 
 ## Warning
 
-Cookbook will remove ```/etc/redis/redis.conf``` and disable default ```redis-service``` initialization.
+Cookbook will remove ```/etc/redis/redis.conf``` and disable default ```redis-server``` initialization.
 
 We use runit instead of init scripts for reasons.
 
