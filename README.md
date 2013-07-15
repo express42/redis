@@ -26,7 +26,6 @@ redis "cluster-name" do
     :maxclients => 256
   )
 end
-
 ```
 
 ## Resources/Providers
