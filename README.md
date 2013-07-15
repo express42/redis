@@ -6,6 +6,7 @@ Install and configure redis key-value store.
 ## Warning
 
 Cookbook will remove ```/etc/redis/redis.conf``` and disable default ```redis-service``` initialization.
+
 We use runit instead of init scripts for reasons.
 
 ## Requirements
@@ -38,12 +39,12 @@ end
   <th>Default</th>
   <tr>
     <td>cluster name</td>
-    <td>used as path to instance files</td>
+    <td>used as path for instance files</td>
     <td>required (name attr)</td>
   </tr>
   <tr>
     <td>configuration</td>
-    <td>hash with instance config</td>
+    <td>hash with instance configuration</td>
     <td>default values in cookbook attributes</td>
   </tr>
 </table>
