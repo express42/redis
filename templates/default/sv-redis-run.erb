@@ -1,0 +1,23 @@
+#!/bin/bash
+set -e
+
+CLUSTER_NAME="<%= @options[:cluster_name] %>"
+PID_FILE="<%= @options[:pid_file] %>"
+
+cd /etc/redis/$CLUSTER_NAME
+
+test -f $PID_FILE && echo "Already running with pid: $(cat $PID_FILE)" 
+
+chpst -u redis:redis redis-server /etc/redis/$CLUSTER_NAME/redis.conf
+
+# forward signals
+for sig in HUP USR1 USR2 QUIT TERM QUIT
+do
+  trap 'kill -'$sig' $(cat $PID_FILE)' $sig
+done
+
+# loop forever while pid file and process exists
+while ( test -f $PID_FILE && ps -p `cat $PID_FILE` > /dev/null )
+do
+  sleep 1
+done
