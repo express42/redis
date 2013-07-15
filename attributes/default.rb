@@ -4,13 +4,16 @@
 # COMMON SETTING
 default['redis']['defaults']['bind']                        = "127.0.0.1"
 default['redis']['defaults']['port']                        = "6379"
-default['redis']['defaults']['config_path']                 = "/etc/redis/redis.conf"
 default['redis']['defaults']['daemonize']                   = "yes"
 default['redis']['defaults']['timeout']                     = "300"
 default['redis']['defaults']['loglevel']                    = "notice"
-default['redis']['defaults']['pidfile']                     = "/var/run/redis/redis-server.pid"
-default['redis']['defaults']['logfile']                     = "/var/log/redis/redis-server.log"
 default['redis']['defaults']['databases']                   = 16
+
+# INSTANCE SPECIFIC
+default['redis']['defaults']['config_path']                 = "/etc/redis"
+default['redis']['defaults']['data_path']                   = "/var/lib/redis"
+default['redis']['defaults']['pid_path']                    = "/var/run/redis"
+default['redis']['defaults']['log_path']                    = "/var/log/redis"
 
 # SNAPSHOTTING
 default['redis']['defaults']['save']                        = [ [900, 1], [300, 10], [60, 10000] ]
