@@ -38,13 +38,13 @@ end
   <th>Default</th>
   <tr>
     <td>cluster name</td>
-    <td>used as path for instance files</td>
+    <td>also used as files path extension</td>
     <td>required (name attr)</td>
   </tr>
   <tr>
     <td>configuration</td>
     <td>hash with instance configuration</td>
-    <td>default values in cookbook attributes</td>
+    <td>see default values in cookbook attributes</td>
   </tr>
 </table>
 
