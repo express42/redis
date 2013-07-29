@@ -28,17 +28,17 @@
 action :create do
 
   redis_package = package "redis-server" do
-    action :nothing
+    action :install
   end
  
   # Remove default config and service initialization on system boot
   default_conf_file = file "/etc/redis/redis.conf" do
-    action :nothing
+    action :delete
     only_if "test -f /etc/redis/redis.conf"
   end
 
   redis_service = service "redis-server" do
-    action :nothing
+    action :disable
   end
 
   configuration = Chef::Mixin::DeepMerge.merge(node.redis.defaults.to_hash, new_resource.configuration)
@@ -56,17 +56,17 @@ action :create do
   cluster_conf_dir = directory "/etc/redis/#{cluster_name}" do
     owner "redis"
     group "redis"
-    action :nothing
+    action :create
   end
 
   cluster_data_dir = directory "#{data_dir}" do
     owner "redis"
     group "redis"
-    action :nothing
+    action :create
   end
 
   configuration_template = template "/etc/redis/#{cluster_name}/redis.conf" do
-    action :nothing
+    action :create
     source "redis.conf.erb"
     owner "redis"
     group "redis"
@@ -86,12 +86,6 @@ action :create do
             :pid_file => "#{pid_file}"
   end
 
-  redis_package.run_action(:install)
-  default_conf_file.run_action(:delete)
-  redis_service.run_action(:disable)
-  cluster_conf_dir.run_action(:create)
-  cluster_data_dir.run_action(:create)
-  configuration_template.run_action(:create)
   if configuration_template.updated_by_last_action?
     @new_resource.updated_by_last_action(true)
   end
