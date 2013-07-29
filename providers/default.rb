@@ -27,17 +27,17 @@
 
 action :create do
 
-  redis_package = package "redis-server" do
+  package "redis-server" do
     action :install
   end
  
   # Remove default config and service initialization on system boot
-  default_conf_file = file "/etc/redis/redis.conf" do
+  file "/etc/redis/redis.conf" do
     action :delete
     only_if "test -f /etc/redis/redis.conf"
   end
 
-  redis_service = service "redis-server" do
+  service "redis-server" do
     action :disable
   end
 
@@ -52,6 +52,9 @@ action :create do
   configuration['pidfile'] = pid_file
   configuration['dir'] = data_dir
   configuration['logfile'] = log_file
+
+  # Override this because we use runit to control the instance
+  configuration['daemonize'] = "no"
 
   cluster_conf_dir = directory "/etc/redis/#{cluster_name}" do
     owner "redis"
@@ -81,6 +84,7 @@ action :create do
 
   runit_service "redis_#{cluster_name}" do
     run_restart false
+    cookbook "redis"
     template_name "redis"
     options :cluster_name => "#{cluster_name}",
             :pid_file => "#{pid_file}"
