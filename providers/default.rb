@@ -41,7 +41,7 @@ action :create do
     action :disable
   end
 
-  configuration = Chef::Mixin::DeepMerge.merge(node.redis.defaults.to_hash, new_resource.configuration)
+  configuration = Chef::Mixin::DeepMerge.merge(node['redis']['defaults'].to_hash, new_resource.configuration)
 
   # Variables
   cluster_name = new_resource.cluster_name
@@ -62,7 +62,7 @@ action :create do
     action :create
   end
 
-  cluster_data_dir = directory "#{data_dir}" do
+  cluster_data_dir = directory data_dir do
     owner "redis"
     group "redis"
     action :create
@@ -86,8 +86,8 @@ action :create do
     run_restart false
     cookbook "redis"
     template_name "redis"
-    options :cluster_name => "#{cluster_name}",
-            :pid_file => "#{pid_file}"
+    options :cluster_name => cluster_name,
+            :pid_file => pid_file
   end
 
   if configuration_template.updated_by_last_action?
