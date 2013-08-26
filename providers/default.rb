@@ -43,6 +43,10 @@ action :create do
 
   configuration = Chef::Mixin::DeepMerge.merge(node['redis']['defaults'].to_hash, new_resource.configuration)
 
+  if new_resource.configuration.has_key?('save') and new_resource.configuration['save'].empty?
+    configuration['save'] = []
+  end
+
   # Variables
   cluster_name = new_resource.cluster_name
   pid_file = "#{configuration[:pid_path]}/redis-#{cluster_name}.pid"
