@@ -262,20 +262,14 @@ no-appendfsync-on-rewrite <%= @configuration['no-appendfsync-on-rewrite'] %>
 auto-aof-rewrite-percentage <%= @configuration['auto-aof-rewrite-percentage'] %>
 auto-aof-rewrite-min-size <%= @configuration['auto-aof-rewrite-min-size'] %>
 
-################################ VIRTUAL MEMORY ###############################
-
-### WARNING! Virtual Memory is deprecated in Redis 2.4
-### The use of Virtual Memory is strongly discouraged.
-vm-enabled no
-
 ############################### ADVANCED CONFIG ###############################
 
 # Hashes are encoded in a special way (much more memory efficient) when they
 # have at max a given numer of elements, and the biggest element does not
 # exceed a given threshold. You can configure this limits with the following
 # configuration directives.
-hash-max-zipmap-entries <%= @configuration['hash-max-zipmap-entries'] %>
-hash-max-zipmap-value <%= @configuration['hash-max-zipmap-value'] %>
+hash-max-ziplist-entries <%= @configuration['hash-max-ziplist-entries'] %>
+hash-max-ziplist-value <%= @configuration['hash-max-ziplist-value'] %>
 
 # Similarly to hashes, small lists are also encoded in a special way in order
 # to save a lot of space. The special representation is only used when

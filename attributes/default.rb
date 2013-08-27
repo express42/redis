@@ -40,8 +40,8 @@ default['redis']['defaults']['auto-aof-rewrite-percentage'] = 100
 default['redis']['defaults']['auto-aof-rewrite-min-size']   = "128mb"
 
 # ADVANCED CONFIG
-default['redis']['defaults']['hash-max-zipmap-entries']     = 512
-default['redis']['defaults']['hash-max-zipmap-value']       = 64
+default['redis']['defaults']['hash-max-ziplist-entries']     = 512
+default['redis']['defaults']['hash-max-ziplist-value']       = 64
 default['redis']['defaults']['list-max-ziplist-entries']    = 512
 default['redis']['defaults']['list-max-ziplist-value']      = 64
 default['redis']['defaults']['set-max-intset-entries']      = 512
