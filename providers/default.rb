@@ -38,7 +38,7 @@ action :create do
   end
 
   service "redis-server" do
-    action :disable
+    action [:disable, :stop]
   end
 
   configuration = Chef::Mixin::DeepMerge.merge(node['redis']['defaults'].to_hash, new_resource.configuration)
