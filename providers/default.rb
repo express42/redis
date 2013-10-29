@@ -87,9 +87,9 @@ action :create do
   end
 
   runit_service "redis_#{cluster_name}" do
-    run_restart false
     cookbook "redis"
-    template_name "redis"
+    log_template_name "redis"
+    run_template_name "redis"
     options :cluster_name => cluster_name,
             :pid_file => pid_file
   end
