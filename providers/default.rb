@@ -88,6 +88,7 @@ action :create do
 
   runit_service "redis_#{cluster_name}" do
     cookbook "redis"
+    default_logger true
     log_template_name "redis"
     run_template_name "redis"
     options :cluster_name => cluster_name,
