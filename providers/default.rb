@@ -34,7 +34,6 @@ action :create do
   # Remove default config and service initialization on system boot
   file '/etc/redis/redis.conf' do
     action :delete
-    only_if 'test -f /etc/redis/redis.conf'
   end
 
   service 'redis-server' do
