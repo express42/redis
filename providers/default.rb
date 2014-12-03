@@ -27,23 +27,23 @@
 
 action :create do
 
-  package "redis-server" do
+  package 'redis-server' do
     action :install
   end
- 
+
   # Remove default config and service initialization on system boot
-  file "/etc/redis/redis.conf" do
+  file '/etc/redis/redis.conf' do
     action :delete
-    only_if "test -f /etc/redis/redis.conf"
+    only_if 'test -f /etc/redis/redis.conf'
   end
 
-  service "redis-server" do
+  service 'redis-server' do
     action [:disable, :stop]
   end
 
   configuration = Chef::Mixin::DeepMerge.merge(node['redis']['defaults'].to_hash, new_resource.configuration)
 
-  if new_resource.configuration.has_key?('save') and new_resource.configuration['save'].empty?
+  if new_resource.configuration.key?('save') && new_resource.configuration['save'].empty?
     configuration['save'] = []
   end
 
@@ -58,45 +58,47 @@ action :create do
   configuration['logfile'] = log_file
 
   # Override this because we use runit to control the instance
-  configuration['daemonize'] = "no"
+  configuration['daemonize'] = 'no'
 
-  cluster_conf_dir = directory "/etc/redis/#{cluster_name}" do
-    owner "redis"
-    group "redis"
+  # cluster conf dir
+  directory "/etc/redis/#{cluster_name}" do
+    owner 'redis'
+    group 'redis'
     action :create
   end
 
-  cluster_data_dir = directory data_dir do
-    owner "redis"
-    group "redis"
+  # cluster data dir
+  directory data_dir do
+    owner 'redis'
+    group 'redis'
     action :create
   end
 
   configuration_template = template "/etc/redis/#{cluster_name}/redis.conf" do
     action :create
-    source "redis.conf.erb"
-    owner "redis"
-    group "redis"
-    mode 0640
-    variables :configuration => configuration
+    source 'redis.conf.erb'
+    owner 'redis'
+    group 'redis'
+    mode '0640'
+    variables configuration: configuration
     if new_resource.cookbook
       cookbook new_resource.cookbook
     else
-      cookbook "redis"
+      cookbook 'redis'
     end
   end
 
   runit_service "redis_#{cluster_name}" do
-    cookbook "redis"
+    cookbook 'redis'
     default_logger true
-    log_template_name "redis"
-    run_template_name "redis"
-    options :cluster_name => cluster_name,
-            :pid_file => pid_file
+    log_template_name 'redis'
+    run_template_name 'redis'
+    options cluster_name: cluster_name,
+            pid_file: pid_file
   end
 
   if configuration_template.updated_by_last_action?
-    @new_resource.updated_by_last_action(true)
+    new_resource.updated_by_last_action(true)
   end
 
 end

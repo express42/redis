@@ -26,12 +26,12 @@
 #
 
 def initialize(*args)
-    super
-      @action = :create
+  super
+  @action = :create
 end
 
 actions :create
 
-attribute :cluster_name, :kind_of => String, :name_attribute => true
-attribute :cookbook, :kind_of => String
-attribute :configuration, :kind_of => Hash, :default => {}
+attribute :cluster_name, kind_of: String, name_attribute: true
+attribute :cookbook, kind_of: String
+attribute :configuration, kind_of: Hash, default: {}
