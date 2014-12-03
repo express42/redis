@@ -9,3 +9,5 @@ depends           'runit'
 
 supports          'debian'
 supports          'ubuntu'
+
+recipe            'postfix::default', 'Do nothing'

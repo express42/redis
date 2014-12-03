@@ -1,21 +1,81 @@
-Redis Cookbook
-======================
+# Description
 
-Install and configure redis key-value store.
+Provides LWRP for managing multiple redis instances.
 
-## Warning
+# Requirements
 
-Cookbook will remove ```/etc/redis/redis.conf``` and disable default ```redis-server``` initialization.
+## Platform:
 
-We use runit instead of init scripts for reasons.
+* Debian
+* Ubuntu
 
-## Requirements
+## Cookbooks:
 
-Depends on ```runit``` cookbook.
+* runit
 
-This cookbook version (0.1.1) tested only on Debian squeeze and Ubuntu 12.04.
+# Attributes
 
-## Usage
+* `node['redis']['defaults']['bind']` -  Defaults to `"127.0.0.1"`.
+* `node['redis']['defaults']['port']` -  Defaults to `"6379"`.
+* `node['redis']['defaults']['daemonize']` -  Defaults to `"yes"`.
+* `node['redis']['defaults']['timeout']` -  Defaults to `"300"`.
+* `node['redis']['defaults']['loglevel']` -  Defaults to `"notice"`.
+* `node['redis']['defaults']['databases']` -  Defaults to `"16"`.
+* `node['redis']['defaults']['config_path']` -  Defaults to `"/etc/redis"`.
+* `node['redis']['defaults']['data_path']` -  Defaults to `"/var/lib/redis"`.
+* `node['redis']['defaults']['pid_path']` -  Defaults to `"/var/run/redis"`.
+* `node['redis']['defaults']['log_path']` -  Defaults to `"/var/log/redis"`.
+* `node['redis']['defaults']['save']` -  Defaults to `"[ ... ]"`.
+* `node['redis']['defaults']['rdbcompression']` -  Defaults to `"yes"`.
+* `node['redis']['defaults']['dbfilename']` -  Defaults to `"dump.rdb"`.
+* `node['redis']['defaults']['dir']` -  Defaults to `"/var/lib/redis"`.
+* `node['redis']['defaults']['slaveof']` -  Defaults to `"nil"`.
+* `node['redis']['defaults']['masterauth']` -  Defaults to `"nil"`.
+* `node['redis']['defaults']['password']` -  Defaults to `"nil"`.
+* `node['redis']['defaults']['maxclients']` -  Defaults to `"128"`.
+* `node['redis']['defaults']['maxmemory']` -  Defaults to `"nil"`.
+* `node['redis']['defaults']['maxmemory-policy']` -  Defaults to `"volatile-lru"`.
+* `node['redis']['defaults']['appendonly']` -  Defaults to `"no"`.
+* `node['redis']['defaults']['appendfsync']` -  Defaults to `"always"`.
+* `node['redis']['defaults']['slave-serve-stale-data']` -  Defaults to `"no"`.
+* `node['redis']['defaults']['no-appendfsync-on-rewrite']` -  Defaults to `"yes"`.
+* `node['redis']['defaults']['auto-aof-rewrite-percentage']` -  Defaults to `"100"`.
+* `node['redis']['defaults']['auto-aof-rewrite-min-size']` -  Defaults to `"128mb"`.
+* `node['redis']['defaults']['hash-max-ziplist-entries']` -  Defaults to `"512"`.
+* `node['redis']['defaults']['hash-max-ziplist-value']` -  Defaults to `"64"`.
+* `node['redis']['defaults']['list-max-ziplist-entries']` -  Defaults to `"512"`.
+* `node['redis']['defaults']['list-max-ziplist-value']` -  Defaults to `"64"`.
+* `node['redis']['defaults']['set-max-intset-entries']` -  Defaults to `"512"`.
+* `node['redis']['defaults']['zset-max-ziplist-entries']` -  Defaults to `"128"`.
+* `node['redis']['defaults']['zset-max-ziplist-value']` -  Defaults to `"64"`.
+* `node['redis']['defaults']['activerehashing']` -  Defaults to `"yes"`.
+
+# Recipes
+
+* postfix::default - Do nothing
+
+# LWRP
+
+### Attribute Parameters
+
+<table>
+<th>Attribute</th>
+<th>Description</th>
+<th>Default</th>
+<tr>
+<td>cluster name</td>
+<td>also used as files path extension</td>
+<td>required (name attr)</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>hash with instance configuration</td>
+<td>see default values in cookbook attributes</td>
+</tr>
+</table>
+
+
+# Usage
 
 Include ```recipe[redis]``` in node runlist or add as dependency
 
@@ -28,41 +88,9 @@ redis "cluster-name" do
 end
 ```
 
-## Resources/Providers
 
-### Attribute Parameters
+# License and Maintainer
 
-<table>
-  <th>Attribute</th>
-  <th>Description</th>
-  <th>Default</th>
-  <tr>
-    <td>cluster name</td>
-    <td>also used as files path extension</td>
-    <td>required (name attr)</td>
-  </tr>
-  <tr>
-    <td>configuration</td>
-    <td>hash with instance configuration</td>
-    <td>see default values in cookbook attributes</td>
-  </tr>
-</table>
+Maintainer:: LLC Express 42 (<info@express42.com>)
 
-License and Author
-==================
-
-Author:: Express 42 (<info@express42.com>)
-
-Copyright (C) 2012-2013 LLC Express 42
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+License:: MIT
