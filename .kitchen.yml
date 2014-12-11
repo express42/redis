@@ -17,5 +17,5 @@ suites:
   - name: default
     run_list:
       - recipe[runit]
-      - recipe[redis]
+      - recipe[redis_test]
     attributes:
