@@ -52,7 +52,7 @@ Provides LWRP for managing multiple redis instances.
 
 # Recipes
 
-* postfix::default - Do nothing
+* redis::default - Do nothing.
 
 # LWRP
 
@@ -77,20 +77,25 @@ Provides LWRP for managing multiple redis instances.
 
 # Usage
 
-Include ```recipe[redis]``` in node runlist or add as dependency
+Include ```recipe[redis]``` in node runlist or add as dependency.
+Recipe will remove ```/etc/redis/redis.conf``` and disable default ```redis-server``` initialization.
+
+We use runit instead of init scripts for reasons.
 
 ```
-redis "cluster-name" do
-  configuration(
-    :bind => "127.0.0.1",
-    :maxclients => 256
+redis 'cluster-name' do
+configuration(
+    bind: '127.0.0.1',
+    maxclients: 256
   )
 end
 ```
 
+See fixture cookbook in `tests/fixtures/cookbooks`.
+
 
 # License and Maintainer
 
-Maintainer:: LLC Express 42 (<info@express42.com>)
+Maintainer:: LLC Express 42 (<cookbooks@express42.com>)
 
 License:: MIT

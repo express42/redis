@@ -6,10 +6,12 @@ Recipe will remove ```/etc/redis/redis.conf``` and disable default ```redis-serv
 We use runit instead of init scripts for reasons.
 
 ```
-redis "cluster-name" do
-  configuration(
-    :bind => "127.0.0.1",
-    :maxclients => 256
+redis 'cluster-name' do
+configuration(
+    bind: '127.0.0.1',
+    maxclients: 256
   )
 end
 ```
+
+See fixture cookbook in `tests/fixtures/cookbooks`.
