@@ -1,3 +1,5 @@
+include_recipe 'apt'
+include_recipe 'runit'
 include_recipe 'redis'
 
 redis 'test1' do
