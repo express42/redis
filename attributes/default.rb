@@ -28,7 +28,7 @@ default['redis']['defaults']['masterauth']                  = nil
 default['redis']['defaults']['password']                    = nil
 # LIMITS
 default['redis']['defaults']['maxclients']                  = '128'
-default['redis']['defaults']['maxmemory']                   =  nil
+default['redis']['defaults']['maxmemory']                   = nil
 default['redis']['defaults']['maxmemory-policy']            = 'volatile-lru'
 
 # APPEND ONLY MODE

@@ -25,8 +25,9 @@
 # SOFTWARE.
 #
 
-action :create do
+use_inline_resources
 
+action :create do
   package 'redis-server' do
     action :install
   end
@@ -99,5 +100,4 @@ action :create do
   if configuration_template.updated_by_last_action?
     new_resource.updated_by_last_action(true)
   end
-
 end
